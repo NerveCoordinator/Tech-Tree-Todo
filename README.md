@@ -9,12 +9,13 @@ Click-drag a node onto another node to mark it as a dependency. Alternative clic
 To delete a dependency, click on the connecting line.
 
 4 views:
-* tech tree - everything is visible, here you can set connections and make new nodes here.
+* tech tree - everything not done is visible, here you can set connections and make new nodes here.
 * task view - Your 'todo list' - the dependencyless non-hidden marked-visible-now not-waiting nodes. 
 * waiting - anything marked 'waiting' that is not marked 'hidden'
 * done - anything marked 'done' 
 
-Setting the visibility by day only should affect the task view. 
+Every node should always be visible in either the tech tree view or the done view.
+Setting the visibility by day only should affect the task and maybe the waiting view. 
 
 
 There are probably lots of bugs and weird stuff as this code was primarily generated with ChatGPT. It's just a prototype. I made it quickly to try it out without much thought.
