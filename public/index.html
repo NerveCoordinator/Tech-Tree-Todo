@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tech Tree</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <!-- Tab Bar -->
+    <div id="tabBar">
+        <button id="techTreeTab" class="tab active">Tech Tree</button>
+        <button id="freeNodeTab" class="tab">Task View</button>
+        <button id="waitingTab" class="tab">Waiting</button> 
+        <button id="doneTab" class="tab">Done</button> 
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="mainContent">
+        <!-- Side Panel -->
+        <div id="sidePanel">
+            <div id="resizeHandle"></div>
+            <h3>Edit Node Properties</h3>
+            <label for="nodeName">Name:</label>
+            <input type="text" id="nodeName" />
+
+            <label for="nodeImage">Image URL:</label>
+            <input type="text" id="nodeImage" />
+
+            <div id="largeNodeImageContainer">
+                <img id="largeNodeImage" src="" alt="Node Image" style="max-width: 100%; height: auto;" />
+            </div>
+
+            <label for="nodeDescription">Description:</label>
+            <textarea id="nodeDescription"></textarea>
+
+            <label>
+                <input type="checkbox" id="nodeWaiting" />
+                Mark as Waiting
+            </label>
+            <label>
+                <input type="checkbox" id="nodeHidden" />
+                Mark as Hidden
+            </label>
+            <label>
+                <input type="checkbox" id="nodeDone" />
+                Mark as Done
+            </label>
+            <!-- Added Job Task Checkbox -->
+            <label>
+                <input type="checkbox" id="nodeJob" />
+                Job Task
+            </label>
+
+            <!-- Day of the Week Selection -->
+            <div id="daySelection">
+                <label>Visible Days:</label>
+                <div id="dayCheckboxes">
+                    <label><input type="checkbox" name="visibleDays" value="0"> Sun</label>
+                    <label><input type="checkbox" name="visibleDays" value="1"> Mon</label>
+                    <label><input type="checkbox" name="visibleDays" value="2"> Tue</label>
+                    <label><input type="checkbox" name="visibleDays" value="3"> Wed</label>
+                    <label><input type="checkbox" name="visibleDays" value="4"> Thu</label>
+                    <label><input type="checkbox" name="visibleDays" value="5"> Fri</label>
+                    <label><input type="checkbox" name="visibleDays" value="6"> Sat</label>
+                </div>
+            </div>
+
+            <!-- Time Selection -->
+            <div id="timeSelection">
+                <label>Visible Time Range:</label>
+                <div>
+                    <label for="startTime">Start Time:</label>
+                    <input type="time" id="startTime" />
+                </div>
+                <div>
+                    <label for="endTime">End Time:</label>
+                    <input type="time" id="endTime" />
+                </div>
+            </div>
+
+            <button id="saveNodeButton">Save</button>
+            <button id="deleteNodeButton">Delete</button>
+        </div>
+
+
+        <!-- Content Area -->
+        <div id="contentArea">
+            <!-- Tech Tree View -->
+            <div id="techTree" class="activeView"></div>
+
+            <!-- Free Node View -->
+            <div id="freeNode" class="inactiveView">
+                <!-- Job Mode Toggle -->
+                <label for="jobModeToggle">Job Mode</label>
+                <input type="checkbox" id="jobModeToggle">
+                <!-- Free Node Container -->
+                <div id="freeNodeContainer"></div>
+            </div>
+
+            <!-- Waiting View -->
+            <div id="waitingView" class="inactiveView">
+                <div id="waitingNodeContainer"></div>
+            </div>
+
+            <!-- Done Tree View -->
+            <div id="doneTree" class="inactiveView"></div>
+        </div>
+    </div>
+
+    <script src="/client.js"></script>
+</body>
+</html>
+

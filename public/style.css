@@ -1,0 +1,507 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+/* Side Panel Styles */
+#sidePanel {
+    width: 300px; /* Initial width */
+    min-width: 200px;
+    max-width: 400px;
+    background-color: #f4f4f4;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: auto;
+}
+#resizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0; /* Corrected position to the right */
+    width: 10px;
+    height: 100%;
+    cursor: ew-resize;
+    background: rgba(0, 0, 0, 0.1); /* Slightly visible for better UX */
+    z-index: 10;
+}
+
+
+/* Tab Styles */
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tab.active {
+    background-color: #fff;
+    border-bottom: none;
+    font-weight: bold;
+}
+
+/* View Styles */
+.view {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.view.activeView {
+    display: block;
+}
+
+.view.inactiveView {
+    display: none;
+}
+
+/* Node Styles */
+
+.node img {
+    width: 40px;
+    height: 40px;
+    margin-top: 2px;
+}
+
+.node p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+}
+
+/* Hidden Node Styles */
+.node.hidden {
+    opacity: 0.5;
+}
+
+/* Connector Styles */
+.connector {
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -6px; /* Positioned at the right center of the node */
+    transform: translateY(-50%);
+    cursor: crosshair;
+    z-index: 20;
+}
+
+.connector:hover {
+    background-color: #555;
+}
+
+/* Line Styles */
+svg.connection-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow interactions to pass through except for lines */
+    z-index: 10; /* Ensure it's above node elements */
+}
+
+.line {
+    stroke: #000;
+    stroke-width: 2;
+    marker-end: url(#arrow); /* Add arrow markers */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: stroke 0.2s, stroke-width 0.2s; /* Smooth transition for hover effects */
+    pointer-events: stroke; /* Ensure lines can receive pointer events */
+    z-index: 20; /* Ensure lines are above the SVG container */
+}
+
+.line:hover {
+    stroke: #ff5722; /* Change color on hover */
+    stroke-width: 3; /* Increase width on hover */
+}
+
+/* Confirmation Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px; /* Could be more or less, depending on screen size */
+    text-align: center;
+    border-radius: 5px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#saveNodeButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#saveNodeButton:hover {
+    background-color: #45a049;
+}
+
+#deleteNodeButton {
+    background-color: #f44336;
+    color: white;
+}
+
+#deleteNodeButton:hover {
+    background-color: #da190b;
+}
+
+#undoButton {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#undoButton:hover {
+    background-color: #0b7dda;
+}
+
+/* Tooltip Styles (Optional) */
+.line[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+}
+
+/* Highlighted Node on Drag */
+.node.highlight {
+    border: 2px dashed #ff5722;
+}
+
+/* Selected Line Styles */
+.line.selected {
+    stroke: #00BCD4; /* Highlight selected line */
+    stroke-width: 4;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Prevent scrollbars */
+}
+#tabBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    background-color: #333;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.tab {
+    flex: 1;
+    padding: 14px 16px;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.tab:hover {
+    background-color: #575757;
+}
+
+.tab.active {
+    background-color: #575757;
+}
+
+/* Main Content Styles */
+#mainContent {
+    margin-top: 70px; /* Adjust this value to match the height of the tab bar */
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 50px); /* Adjust based on tab bar height */
+    overflow: hidden;
+}
+
+/* Side Panel Styles */
+#sidePanel {
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 200px;      /* Set a minimum width */
+    max-width: 600px;      /* Set a maximum width */
+    flex-shrink: 0;        /* Prevent the side panel from shrinking */
+    position: relative;    /* Allow positioning the resize handle */
+    overflow: auto;        /* Scroll if content overflows */
+}
+
+/* Resize Handle Styles */
+#resizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;               /* Resize handle width */
+    height: 100%;              /* Full height of the panel */
+    cursor: ew-resize;         /* Indicate that it can be resized */
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.1); /* Slightly visible for better UX */
+}
+
+/* Content Area Styles */
+#contentArea {
+    flex-grow: 1;
+    position: relative;
+    overflow: auto; /* Hide overflow to manage child elements */
+    background-color: #f9f9f9;
+}
+
+/* Tech Tree and Free Node Views */
+#techTree, #freeNode, #waitingView {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/* Active and Inactive Views */
+.activeView {
+    display: block;
+}
+
+.inactiveView {
+    display: none;
+}
+
+/* CSS Variables for Node and Image Sizes */
+:root {
+    /* Tech Tree Node Sizes */
+    --tech-node-width: 100px;
+    --tech-node-height: 132px;
+    --tech-node-img-width: 98px;
+    --tech-node-img-height: 100px;
+    
+    /* Free Node Mode Sizes */
+    --free-node-width: 512px; /* Default width for Free Node mode */
+    --free-node-height: 550px; /* Default height for Free Node mode */
+    --free-node-img-width: 512px; /* Default image width for Free Node mode */
+    --free-node-img-height: 512px; /* Default image height for Free Node mode */
+}
+
+/* Existing styles... */
+
+/* Node Styles */
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    margin: 10px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #ffffff;
+    width: var(--tech-node-width);
+    height: var(--tech-node-height);
+    z-index: 10;
+    cursor: pointer;
+    position: absolute; /* For Tech Tree mode */
+    transition: opacity 0.3s, border-color 0.3s; /* Smooth transition for status changes */
+}
+
+/* Override styles for Free Node mode */
+#freeNodeContainer .node, #waitingNodeContainer .node {
+    position: static; /* Remove absolute positioning */
+    margin: 10px;
+    width: var(--free-node-width);
+    height: var(--free-node-height);
+}
+
+/* Image Styles */
+.node img {
+    max-width: var(--tech-node-img-width); /* Limits width without stretching */
+    max-height: var(--tech-node-img-height); /* Limits height without stretching */
+    width: auto; /* Allows image to keep aspect ratio */
+    height: auto; /* Allows image to keep aspect ratio */
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: max-width 0.3s, max-height 0.3s; /* Smooth transition for size changes */
+}
+
+/* Override image sizes for Free Node mode */
+#freeNodeContainer .node img, #waitingNodeContainer .node img {
+    max-width: var(--free-node-img-width); /* Limits width without stretching */
+    max-height: var(--free-node-img-height); /* Limits height without stretching */
+}
+
+/* Tech Tree Container */
+
+#techTree {
+    position: relative;
+    overflow: auto;
+}
+
+/* Grey out hidden nodes in the Tech Tree view */
+#techTree .node.hidden {
+    background-color: #f0f0f0; /* Sets a light grey background */
+    color: #666; /* Sets the text color to grey */
+    border-color: #999; /* Changes border color to a lighter grey */
+    cursor: default; /* Changes cursor to default to indicate non-interactive */
+    /* Remove opacity to prevent unwanted transparency affecting child elements */
+    opacity: 1;
+}
+
+/* Optional: Further Grey Out Images in Hidden Nodes */
+#techTree .node.hidden img {
+    filter: grayscale(100%); /* Applies a greyscale filter to the image */
+}
+/* Line Styles */
+
+/* SVG Lines */
+svg.connection-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    /* Remove any width or height constraints */
+}
+
+
+/* Connector Styles */
+.connector {
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -6px; /* Positioned at the right center of the node */
+    transform: translateY(-50%);
+    cursor: crosshair;
+    z-index: 0;
+}
+
+.connector:hover {
+    background-color: #555;
+}
+/* style.css */
+
+/* Line Styles */
+svg.connection-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow interactions to pass through except for lines */
+    z-index: 0; /* Ensure it's above node elements */
+}
+
+.line {
+    stroke: #000;
+    stroke-width: 2;
+    marker-end: url(#arrow); /* Add arrow markers */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: stroke 0.2s, stroke-width 0.2s; /* Smooth transition for hover effects */
+    pointer-events: stroke; /* Ensure lines can receive pointer events */
+    z-index: 0; /* Ensure lines are above the SVG container */
+}
+
+.line:hover {
+    stroke: #ff5722; /* Change color on hover */
+    stroke-width: 3; /* Increase width on hover */
+}
+
+/* Tooltip Styles (Optional) */
+.line[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+}
+
+/* Free Node Container */
+#freeNodeContainer, #waitingNodeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Optional: Highlight Node During Dragging */
+.node.highlight {
+    border-color: #ff9800; /* Highlight color */
+}
+
