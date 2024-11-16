@@ -21,7 +21,9 @@
           NODE_ENV = "development";
 
           shellHook = ''
-            echo "Welcome to the Tech Tree development shell!"
+            echo "run the following commands to prepare the environment:"
+            echo "npm init -y"
+            echo "npm install express multer cors uuid"
             echo "Run 'node server.js' to start the server."
           '';
         };

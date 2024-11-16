@@ -9,10 +9,10 @@ Click-drag a node onto another node to mark it as a dependency. Alternative clic
 To delete a dependency, click on the connecting line.
 
 4 views:
-* tech tree - everything is visible, set connections and make new nodes here.
+* tech tree - everything is visible, here you can set connections and make new nodes here.
 * task view - Your 'todo list' - the dependencyless non-hidden marked-visible-now not-waiting nodes. 
-* waiting - anything marked 'waiting' 
-* done - anything marked 'done'
+* waiting - anything marked 'waiting' that is not marked 'hidden'
+* done - anything marked 'done' 
 
 Setting the visibility by day only should affect the task view. 
 
@@ -23,7 +23,7 @@ But people expressed interest, so here it is.
 ```
 nix develop
 npm init -y
-npm install express multer cors
+npm install express multer cors uuid
 node server.js
 ```
 it is then available at http://localhost:3000/ in your browser.

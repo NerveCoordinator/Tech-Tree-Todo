@@ -252,7 +252,7 @@ function getFilterFunction(viewType) {
         case 'techTree':
             return node => !node.done;
         case 'doneTree':
-            return node => node.done && !node.hidden;
+            return node => node.done;
         case 'freeNode':
 
             return node => {
